@@ -178,7 +178,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2251680fa9b2dbe4aa791119c71b6ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Pared1>k__BackingField: {fileID: 2100000, guid: 78526118febcf0f47b6377f49308145f,
+  <Pared1>k__BackingField: {fileID: 2100000, guid: f3bcef91c7d4b2e4494e3feaf0c63f35,
     type: 2}
-  <Suelo1>k__BackingField: {fileID: 2100000, guid: 2cb352b3a3e94c74fb11461eeee53ab2,
+  <Suelo1>k__BackingField: {fileID: 2100000, guid: fcf051271afeed744a72922345d19400,
     type: 2}
+  <Pared2>k__BackingField: {fileID: 2100000, guid: 029d4585e5063994fa5e74c5c7290fa9,
+    type: 2}
+  <Suelo2>k__BackingField: {fileID: 2100000, guid: 9f758f4b8d7a0d74192211909a36e111,
+    type: 2}
+  <Pared3>k__BackingField: {fileID: 2100000, guid: 5790aacfb55bcef46922668c47799c0b,
+    type: 2}
+  <Suelo3>k__BackingField: {fileID: 2100000, guid: 91ec2db432cfa1343a9e847185a53bc0,
+    type: 2}
+  <Pared4>k__BackingField: {fileID: 2100000, guid: cec84ad73dd6eb746b10d5c9665db372,
+    type: 2}
+  <Suelo4>k__BackingField: {fileID: 2100000, guid: bae2c3f4780c8904c896348f4ee27b82,
+    type: 2}
+  <Pared5>k__BackingField: {fileID: 2100000, guid: 6ca8ca1f7cb689f45a93fc3cce119ebe,
+    type: 2}
+  <Suelo5>k__BackingField: {fileID: 2100000, guid: 452ed4e02b8490648a97da2e7264ea3f,
+    type: 2}
+  <Pared6>k__BackingField: {fileID: 0}
+  <Suelo6>k__BackingField: {fileID: 0}
+  <Pared7>k__BackingField: {fileID: 0}
+  <Suelo7>k__BackingField: {fileID: 0}
