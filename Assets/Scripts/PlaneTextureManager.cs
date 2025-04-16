@@ -84,6 +84,7 @@ public class PlaneTextureManager : MonoBehaviour
 
     void DetermineTexture()
     {
+        
         if(vertical)
         {
             mr.material = Pared1;
@@ -93,4 +94,15 @@ public class PlaneTextureManager : MonoBehaviour
             mr.material = Suelo1;
         }
     }
+
+    //hay que hacer una función que cuando sea un random() que de un numero del 0 al 6 para determinar que 
+    //"mundo" estás, osea que posicion del array de textura se va a usar y pasarlo a la funcion DetermineTexture
+    //y tambien una función que cuando toques la pared llame a la de randomizar textura.
+
+    //Estas dos funciones a lo mejor va mejor ponerlas en un empty (gameObject) aparte y relacionarlas con este script, porque
+    // si haces la función de random() cada vez que inicias el plano se mezclaran los "mundos"
+
+    //si no lo que también se puede hacer es iniciar en el mismo mundo cada que inicias la aplicación y que el primer randomizado sea con
+    // el toque a la pared. Esto será más fácil de programar, será todo en este mismo script y tampoco es gran sacrificio.
+    //Osea que a groso modo seria hacer una variable INT mundo o algo asi que guarde un numero del 0 al 6 y ya.
 }
