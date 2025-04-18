@@ -84,6 +84,8 @@ public class PlaneTextureManager : MonoBehaviour
 
     void DetermineTexture()
     {
+        if (index < 0 || index >= Pared.Length) return; //se usa pared.length para que no se pase del numero maximo y podamos agregar mas sin tener que preocuparnos por este numero
+        //este if con el "index" se agrego por seguridad, creo que no pasaria nada si no esta pero por si acaso
         
         if(vertical)
         {
@@ -93,16 +95,36 @@ public class PlaneTextureManager : MonoBehaviour
         {
             mr.material = Suelo1;
         }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            MundoRandom();
+        }
     }
 
-    //hay que hacer una función que cuando sea un random() que de un numero del 0 al 6 para determinar que 
-    //"mundo" estás, osea que posicion del array de textura se va a usar y pasarlo a la funcion DetermineTexture
-    //y tambien una función que cuando toques la pared llame a la de randomizar textura.
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            MundoRandom();
+        }
+    }
+    }
+
+
+
+    // (HECHO) hay que hacer una funciï¿½n que cuando sea un random() que de un numero del 0 al 6 para determinar que 
+    //"mundo" estï¿½s, osea que posicion del array de textura se va a usar y pasarlo a la funcion DetermineTexture
+    // (HECHO) y tambien una funciï¿½n que cuando toques la pared llame a la de randomizar textura.
 
     //Estas dos funciones a lo mejor va mejor ponerlas en un empty (gameObject) aparte y relacionarlas con este script, porque
-    // si haces la función de random() cada vez que inicias el plano se mezclaran los "mundos"
+    // si haces la funciï¿½n de random() cada vez que inicias el plano se mezclaran los "mundos"
 
-    //si no lo que también se puede hacer es iniciar en el mismo mundo cada que inicias la aplicación y que el primer randomizado sea con
-    // el toque a la pared. Esto será más fácil de programar, será todo en este mismo script y tampoco es gran sacrificio.
+    //si no lo que tambiï¿½n se puede hacer es iniciar en el mismo mundo cada que inicias la aplicaciï¿½n y que el primer randomizado sea con
+    // el toque a la pared. Esto serï¿½ mï¿½s fï¿½cil de programar, serï¿½ todo en este mismo script y tampoco es gran sacrificio.
     //Osea que a groso modo seria hacer una variable INT mundo o algo asi que guarde un numero del 0 al 6 y ya.
+
+    //puse las dos en el mismo script, falta hacer lo que ha dicho en el ultimo parrafo.
 }
