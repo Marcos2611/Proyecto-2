@@ -56,6 +56,7 @@ public class PlaneTextureManager : MonoBehaviour
 
     MeshRenderer mr;
 
+    private int mundo = 0;
 
     void Start()
     {
@@ -64,10 +65,9 @@ public class PlaneTextureManager : MonoBehaviour
 
         mr = this.transform.GetComponent<MeshRenderer>();
         CheckNormals();
-        DetermineTexture();
 
-
-
+        //el mundo inicia en 0
+        DetermineTexture(mundo);
     }
 
     void CheckNormals()
@@ -96,21 +96,20 @@ public class PlaneTextureManager : MonoBehaviour
             mr.material = Suelo1;
         }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        void MundoRandom()
         {
-            MundoRandom();
+        // Genera nuevo mundo aleatorio
+        mundo = Random.Range(0, 7);
+        DetermineTexture(mundo);
         }
-    }
 
-    void OnCollisionEnter(Collision collision)
-    {
+        void OnCollisionEnter(Collision collision)
+        {
         if (collision.gameObject.CompareTag("Player"))
         {
             MundoRandom();
         }
-    }
+        }
     }
 
 
@@ -122,9 +121,7 @@ public class PlaneTextureManager : MonoBehaviour
     //Estas dos funciones a lo mejor va mejor ponerlas en un empty (gameObject) aparte y relacionarlas con este script, porque
     // si haces la funci�n de random() cada vez que inicias el plano se mezclaran los "mundos"
 
-    //si no lo que tambi�n se puede hacer es iniciar en el mismo mundo cada que inicias la aplicaci�n y que el primer randomizado sea con
+    // (HECHO) si no lo que tambi�n se puede hacer es iniciar en el mismo mundo cada que inicias la aplicaci�n y que el primer randomizado sea con
     // el toque a la pared. Esto ser� m�s f�cil de programar, ser� todo en este mismo script y tampoco es gran sacrificio.
     //Osea que a groso modo seria hacer una variable INT mundo o algo asi que guarde un numero del 0 al 6 y ya.
-
-    //puse las dos en el mismo script, falta hacer lo que ha dicho en el ultimo parrafo.
 }
