@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,12 +52,24 @@ public class PlaneTextureManager : MonoBehaviour
     private Material[] Pared;
     private Material[] Suelo;
 
+    public static event Action<int> OnTextureChange;
 
     bool vertical;
 
     MeshRenderer mr;
 
     private int mundo = 0;
+
+    void Awake()
+    {
+        OnTextureChange += DetermineTexture;
+    }
+
+    void OnDestroy()
+    {
+        OnTextureChange -= DetermineTexture;
+    }
+
 
     void Start()
     {
@@ -65,8 +78,6 @@ public class PlaneTextureManager : MonoBehaviour
 
         mr = this.transform.GetComponent<MeshRenderer>();
         CheckNormals();
-
-        //el mundo inicia en 0
         DetermineTexture(mundo);
     }
 
@@ -82,38 +93,30 @@ public class PlaneTextureManager : MonoBehaviour
         }
     }
 
-    void DetermineTexture()
-    {
-        if (index < 0 || index >= Pared.Length) return; //se usa pared.length para que no se pase del numero maximo y podamos agregar mas sin tener que preocuparnos por este numero
-        //este if con el "index" se agrego por seguridad, creo que no pasaria nada si no esta pero por si acaso
-        
+    void DetermineTexture(int mundo)
+    { 
         if(vertical)
         {
-            mr.material = Pared1;
+            mr.material = Pared[mundo];
         }
         else
         {
-            mr.material = Suelo1;
-        }
-
-        void MundoRandom()
-        {
-        // Genera nuevo mundo aleatorio
-        mundo = Random.Range(0, 7);
-        DetermineTexture(mundo);
-        }
-
-        void OnCollisionEnter(Collision collision)
-        {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            MundoRandom();
-        }
+            mr.material = Suelo[mundo];
         }
     }
 
 
+    void MundoRandom()
+    {
+        mundo = UnityEngine.Random.Range(0, 6);
+        OnTextureChange?.Invoke(mundo);
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("huboCollision");
+        MundoRandom();
+    }
     // (HECHO) hay que hacer una funci�n que cuando sea un random() que de un numero del 0 al 6 para determinar que 
     //"mundo" est�s, osea que posicion del array de textura se va a usar y pasarlo a la funcion DetermineTexture
     // (HECHO) y tambien una funci�n que cuando toques la pared llame a la de randomizar textura.
