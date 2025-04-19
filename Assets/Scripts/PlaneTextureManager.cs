@@ -54,14 +54,22 @@ public class PlaneTextureManager : MonoBehaviour
 
     public static event Action<int> OnTextureChange;
 
+    public static int mundo { get; private set; } = 0;
+
     bool vertical;
 
     MeshRenderer mr;
 
-    private int mundo = 0;
+    private int mundoPrevio = 0;
+
+    bool canCollide = true;
+
+    float collisionCD = 2f;
 
     void Awake()
     {
+        int seed = System.Environment.TickCount;
+        UnityEngine.Random.InitState(seed);
         OnTextureChange += DetermineTexture;
     }
 
@@ -108,15 +116,36 @@ public class PlaneTextureManager : MonoBehaviour
 
     void MundoRandom()
     {
+        mundoPrevio = mundo;
         mundo = UnityEngine.Random.Range(0, 6);
-        OnTextureChange?.Invoke(mundo);
+        if (mundoPrevio == mundo)
+        {
+            MundoRandom();
+        }
+        else
+        {
+            OnTextureChange?.Invoke(mundo);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("huboCollision");
-        MundoRandom();
+
+        if (canCollide == true)
+        {
+            MundoRandom();
+        }
+
+        canCollide = false;
+        Invoke(nameof(ResetCollision), collisionCD);
+      
     }
+
+    private void ResetCollision()
+    {
+        canCollide = true;
+    }
+
     // (HECHO) hay que hacer una funci�n que cuando sea un random() que de un numero del 0 al 6 para determinar que 
     //"mundo" est�s, osea que posicion del array de textura se va a usar y pasarlo a la funcion DetermineTexture
     // (HECHO) y tambien una funci�n que cuando toques la pared llame a la de randomizar textura.
