@@ -54,6 +54,8 @@ public class PlaneTextureManager : MonoBehaviour
 
     public static event Action<int> OnTextureChange;
 
+    public static event Action UiCaller;
+
     public static int mundo { get; private set; } = 0;
 
     bool vertical;
@@ -64,7 +66,9 @@ public class PlaneTextureManager : MonoBehaviour
 
     bool canCollide = true;
 
-    float collisionCD = 2f;
+    float collisionCD = 3f;
+
+    float Contador = 0f;
 
     void Awake()
     {
@@ -124,7 +128,9 @@ public class PlaneTextureManager : MonoBehaviour
         }
         else
         {
-            OnTextureChange?.Invoke(mundo);
+            Contador = 0f;
+            StartCoroutine(EsperarTransicion());
+           
         }
     }
 
@@ -134,6 +140,7 @@ public class PlaneTextureManager : MonoBehaviour
         if (canCollide == true)
         {
             MundoRandom();
+            UiCaller?.Invoke();
         }
 
         canCollide = false;
@@ -146,14 +153,15 @@ public class PlaneTextureManager : MonoBehaviour
         canCollide = true;
     }
 
-    // (HECHO) hay que hacer una funci�n que cuando sea un random() que de un numero del 0 al 6 para determinar que 
-    //"mundo" est�s, osea que posicion del array de textura se va a usar y pasarlo a la funcion DetermineTexture
-    // (HECHO) y tambien una funci�n que cuando toques la pared llame a la de randomizar textura.
+    private IEnumerator EsperarTransicion()
+    {
+        while (Contador < 1.2f)
+        {
+           
+            Contador += Time.deltaTime;
+            yield return null;
+        }
+        OnTextureChange?.Invoke(mundo);
+    }
 
-    //Estas dos funciones a lo mejor va mejor ponerlas en un empty (gameObject) aparte y relacionarlas con este script, porque
-    // si haces la funci�n de random() cada vez que inicias el plano se mezclaran los "mundos"
-
-    // (HECHO) si no lo que tambi�n se puede hacer es iniciar en el mismo mundo cada que inicias la aplicaci�n y que el primer randomizado sea con
-    // el toque a la pared. Esto ser� m�s f�cil de programar, ser� todo en este mismo script y tampoco es gran sacrificio.
-    //Osea que a groso modo seria hacer una variable INT mundo o algo asi que guarde un numero del 0 al 6 y ya.
 }
