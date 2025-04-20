@@ -121,7 +121,7 @@ public class PlaneTextureManager : MonoBehaviour
     void MundoRandom()
     {
         mundoPrevio = mundo;
-        mundo = UnityEngine.Random.Range(0, 6);
+        mundo = UnityEngine.Random.Range(0, 7);
         if (mundoPrevio == mundo)
         {
             MundoRandom();
