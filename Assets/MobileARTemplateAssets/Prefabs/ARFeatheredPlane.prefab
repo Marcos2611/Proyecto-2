@@ -202,5 +202,7 @@ MonoBehaviour:
     type: 2}
   <Suelo6>k__BackingField: {fileID: 2100000, guid: 904f200e0a230e24d8f9f4d07aa16e9b,
     type: 2}
-  <Pared7>k__BackingField: {fileID: 0}
-  <Suelo7>k__BackingField: {fileID: 0}
+  <Pared7>k__BackingField: {fileID: 2100000, guid: 06542038c49bc57468bfd46e8f51c60e,
+    type: 2}
+  <Suelo7>k__BackingField: {fileID: 2100000, guid: 40d071b62f112ee4fbe6e8af4ec9912d,
+    type: 2}
