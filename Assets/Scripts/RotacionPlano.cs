@@ -18,7 +18,7 @@ public class RotacionPlano : MonoBehaviour
         }
     }
 
-    void start()
+    void Start()
     {
         player= GameObject.Find("Main Camera").transform; 
 
