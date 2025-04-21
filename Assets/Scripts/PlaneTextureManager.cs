@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlaneTextureManager : MonoBehaviour
 {
-   
+
 
     [field: Header("Pared1")]
     [field: SerializeField] public Material Pared1 { get; private set; }
@@ -49,6 +50,13 @@ public class PlaneTextureManager : MonoBehaviour
     [field: Header("Suelo7")]
     [field: SerializeField] public Material Suelo7 { get; private set; }
 
+    [field: Header("PrefabNPC")]
+    [field: SerializeField] public GameObject HatMan { get; private set; }
+
+    private GameObject EmptyRaycast;
+
+    private GameObject npcInstanciado;
+
     private Material[] Pared;
     private Material[] Suelo;
 
@@ -70,8 +78,11 @@ public class PlaneTextureManager : MonoBehaviour
 
     float Contador = 0f;
 
+    public static bool Instanciado = false;
+
     void Awake()
     {
+        EmptyRaycast = GameObject.Find("Racas");
         int seed = System.Environment.TickCount;
         UnityEngine.Random.InitState(seed);
         OnTextureChange += DetermineTexture;
@@ -91,11 +102,18 @@ public class PlaneTextureManager : MonoBehaviour
         mr = this.transform.GetComponent<MeshRenderer>();
         CheckNormals();
         DetermineTexture(mundo);
+        StartCoroutine(InstantiateNPCRoutine());
+    }
+
+    private void Update()
+    {
+
+
     }
 
     void CheckNormals()
     {
-       if(transform.up.normalized == Vector3.up)
+        if (transform.up.normalized == Vector3.up)
         {
             vertical = false;
         }
@@ -106,8 +124,8 @@ public class PlaneTextureManager : MonoBehaviour
     }
 
     void DetermineTexture(int mundo)
-    { 
-        if(vertical)
+    {
+        if (vertical)
         {
             mr.material = Pared[mundo];
         }
@@ -130,7 +148,7 @@ public class PlaneTextureManager : MonoBehaviour
         {
             Contador = 0f;
             StartCoroutine(EsperarTransicion());
-           
+
         }
     }
 
@@ -139,13 +157,17 @@ public class PlaneTextureManager : MonoBehaviour
 
         if (canCollide == true)
         {
-            MundoRandom();
-            UiCaller?.Invoke();
+            if(collision.collider.CompareTag("MainCamera"))
+            {
+                MundoRandom();
+                UiCaller?.Invoke();
+            }
+           
         }
 
         canCollide = false;
         Invoke(nameof(ResetCollision), collisionCD);
-      
+
     }
 
     private void ResetCollision()
@@ -157,11 +179,32 @@ public class PlaneTextureManager : MonoBehaviour
     {
         while (Contador < 1.2f)
         {
-           
+
             Contador += Time.deltaTime;
             yield return null;
         }
         OnTextureChange?.Invoke(mundo);
     }
 
+    private IEnumerator InstantiateNPCRoutine()
+    {
+        while (true)
+        {
+            if (EmptyRaycast != null && !Instanciado)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(EmptyRaycast.transform.position, Vector3.down, out hit))
+                {
+                    if (hit.collider.CompareTag("Plano"))
+                    {
+                        
+                        Instanciado = true;
+                        Instantiate(HatMan, EmptyRaycast.transform.position, Quaternion.identity);
+                    }
+                }
+            }
+
+            yield return new WaitForSeconds(0.6f);
+        }
+    }
 }

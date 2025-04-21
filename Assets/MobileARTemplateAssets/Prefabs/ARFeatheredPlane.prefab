@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 7565670752300084699}
   m_Layer: 0
   m_Name: ARFeatheredPlane
-  m_TagString: Untagged
+  m_TagString: Plano
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,3 +206,5 @@ MonoBehaviour:
     type: 2}
   <Suelo7>k__BackingField: {fileID: 2100000, guid: 40d071b62f112ee4fbe6e8af4ec9912d,
     type: 2}
+  <HatMan>k__BackingField: {fileID: 5877664566313988669, guid: c2609959b96a64f459efc8ad38d95af2,
+    type: 3}
