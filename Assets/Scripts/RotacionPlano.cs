@@ -20,6 +20,7 @@ public class RotacionPlano : MonoBehaviour
 
     void start()
     {
-        player= GameObject.FindGameObjectWithTag("MainCamera").transform; // Busca el objeto con la etiqueta "MainCamera" y lo asigna a la variable player
+        player= GameObject.Find("Main Camera").transform; 
+
     }
 }
